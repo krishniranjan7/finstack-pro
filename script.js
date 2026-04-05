@@ -55,13 +55,11 @@ window.navigate = (view, el) => {
     if (view === 'career') updateWealthLogic();
 };
 
-// --- 🛡️ AUTH & PIN CORE (Zero-Flicker Sync) ---
+// --- 🛡️ AUTH & PIN CORE ---
 onAuthStateChanged(auth, async (user) => {
-    // 💡 CRITICAL: We use 'pin-screen' to match your CSS Cloak
-    const lockScreen = document.getElementById('pin-screen');
+    const lockScreen = document.getElementById('security-lock-screen');
     const landingPage = document.getElementById('landing-page');
     const loginScreen = document.getElementById('login-screen');
-    const mainDashboard = document.getElementById('main-dashboard');
 
     if (user) {
         currentUser = user;
@@ -69,15 +67,14 @@ onAuthStateChanged(auth, async (user) => {
         const data = snap.exists() ? snap.data() : {};
         globalPIN = data.securityPIN || null;
 
-        // 🟢 INSTANT HIDE: Stop showing entry pages
-        if (landingPage) landingPage.style.display = 'none';
-        if (loginScreen) loginScreen.style.display = 'none';
+        // INSTANT HIDE: Stop showing entry pages
+        landingPage.style.display = 'none';
+        loginScreen.style.display = 'none';
 
         if (data.pinEnabled && globalPIN) {
-            // Reveal the PIN screen using !important to override the CSS cloak
-            lockScreen.style.setProperty('display', 'flex', 'important');
-            mainDashboard.style.display = 'none';
+            lockScreen.style.display = 'flex';
         } else {
+            // ⚡ ANTI-FLICKER: Kill the PIN screen if it flashed from the URL signal
             lockScreen.style.display = 'none';
             showDashboard();
         }
@@ -87,18 +84,18 @@ onAuthStateChanged(auth, async (user) => {
         syncLedger();
         initTaxLogic();
     } else {
-        // 🔴 GUEST LOGIC: Ensure the PIN screen stays hidden
-        currentUser = null;
+        // --- ⚡ GUEST LOGIC ---
+        // If not logged in, the PIN screen MUST be hidden
         if (lockScreen) lockScreen.style.display = 'none';
 
         if (isPWA) {
-            if (landingPage) landingPage.style.display = 'none';
-            loginScreen.style.setProperty('display', 'flex', 'important');
+            landingPage.style.display = 'none';
+            loginScreen.style.display = 'flex';
         } else {
-            landingPage.style.setProperty('display', 'flex', 'important');
-            if (loginScreen) loginScreen.style.display = 'none';
+            landingPage.style.display = 'flex';
+            loginScreen.style.display = 'none';
         }
-        mainDashboard.style.display = 'none';
+        document.getElementById('main-dashboard').style.display = 'none';
     }
 });
 
@@ -118,8 +115,7 @@ window.verifyPin = () => {
 };
 
 function showDashboard() {
-    // Matches the ID in your CSS Cloak
-    document.getElementById('pin-screen').style.display = 'none';
+    document.getElementById('security-lock-screen').style.display = 'none';
     document.getElementById('main-dashboard').style.display = 'block';
 }
 
