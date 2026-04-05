@@ -1,3 +1,16 @@
+/* 🛡️ ELITE MASTER CLOAK: Zero-Flicker System */
+#pin-screen,
+#login-screen,
+#landing-page,
+#main-dashboard {
+    display: none !important;
+}
+
+/* Ensure the app-container doesn't show before it's ready */
+.app-interface {
+    display: none;
+}
+
 /* FINSTACK PRO | MASTER STYLESHEET
     Interface: Elite Financial Intelligence
 */
