@@ -4,18 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <meta property="og:title" content="FinStack Pro | Elite Financial Intelligence">
     <meta property="og:description"
         content="The ultimate ecosystem for ACCA professionals. Track wealth, calculate taxes, and crush milestones in one secure terminal.">
-    <meta property="og:image" content="https://yourusername.github.io/your-repo-name/icon.png">
-    <meta property="og:url" content="https://yourusername.github.io/your-repo-name/">
+    <meta property="og:image" content="https://krishniranjan7.github.io/finstack-pro/icon.png">
+    <meta property="og:url" content="https://krishniranjan7.github.io/finstack-pro/">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="FinStack Pro | v2.0 Elite">
     <meta name="twitter:description" content="Built by Krish Niranjan. Finance meets Technical Intelligence.">
-    <meta name="twitter:image" content="https://yourusername.github.io/your-repo-name/icon.png">
+    <meta name="twitter:image" content="https://krishniranjan7.github.io/finstack-pro/icon.png">
+
     <title>FinStack Pro | Elite Financial Intelligence</title>
+
     <link rel="stylesheet" href="style.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&family=Inter:wght@400;600;800&display=swap"
@@ -23,30 +26,6 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
-    <script>
-        // Check the URL immediately for the PWA signal
-        if (window.location.search.includes('launcher=pwa')) {
-            // 1. Instantly hide the whole page to prevent "Flickering"
-            document.documentElement.style.visibility = 'hidden';
-
-            // 2. Wait for the elements to exist in the background
-            window.addEventListener('DOMContentLoaded', () => {
-                const landing = document.getElementById('landing-page');
-                const lockScreen = document.getElementById('security-lock-screen');
-
-                // 3. Swap the sections while the user sees a dark screen
-                if (landing) landing.style.display = 'none';
-                if (lockScreen) lockScreen.style.display = 'flex';
-
-                // 4. Reveal the page now that it's on the PIN screen
-                document.documentElement.style.visibility = 'visible';
-
-                // 5. Auto-focus the PIN input for a "Heavyweight App" feel
-                const pinInput = document.getElementById('unlock-pin');
-                if (pinInput) pinInput.focus();
-            });
-        }
-    </script>
 </head>
 
 <body>
@@ -68,7 +47,7 @@
         </div>
     </section>
 
-    <div id="security-lock-screen" class="screen login-gate" style="display:none; z-index: 9999;">
+    <div id="pin-screen" class="screen login-gate" style="display:none; z-index: 9999;">
         <div class="login-card glass-pro">
             <div class="app-icon-glow">🔒</div>
             <h1 class="pro-title">Terminal Locked</h1>
@@ -283,6 +262,7 @@
                         <button id="save-account-btn" class="btn-primary-glow" style="margin-top:15px;">Update
                             Profile</button>
                     </div>
+
                     <div class="card bg-blur">
                         <h3>🛡️ 2-Factor Authentication</h3>
                         <div id="tfa-setup-ui"><button onclick="startTFA()" class="btn-outline-pro">Verify Identity for
@@ -294,6 +274,7 @@
                         <p id="tfa-tag" style="font-size: 0.7rem; color: #94a3b8; margin-top: 10px;">Status: INACTIVE
                         </p>
                     </div>
+
                     <div class="card bg-blur">
                         <h3>🔒 App Lock</h3>
                         <div style="display:flex; justify-content:space-between; align-items:center;">
