@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:title" content="FinStack Pro | Elite Financial Intelligence">
+    <meta property="og:description"
+        content="The ultimate ecosystem for ACCA professionals. Track wealth, calculate taxes, and crush milestones in one secure terminal.">
+    <meta property="og:image" content="https://yourusername.github.io/your-repo-name/icon.png">
+    <meta property="og:url" content="https://yourusername.github.io/your-repo-name/">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FinStack Pro | v2.0 Elite">
+    <meta name="twitter:description" content="Built by Krish Niranjan. Finance meets Technical Intelligence.">
+    <meta name="twitter:image" content="https://yourusername.github.io/your-repo-name/icon.png">
+    <title>FinStack Pro | Elite Financial Intelligence</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500;700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="apple-touch-icon" href="icon.png">
+    <script>
+        // Check the URL immediately for the PWA signal
+        if (window.location.search.includes('launcher=pwa')) {
+            // 1. Instantly hide the whole page to prevent "Flickering"
+            document.documentElement.style.visibility = 'hidden';
+
+            // 2. Wait for the elements to exist in the background
+            window.addEventListener('DOMContentLoaded', () => {
+                const landing = document.getElementById('landing-page');
+                const lockScreen = document.getElementById('security-lock-screen');
+
+                // 3. Swap the sections while the user sees a dark screen
+                if (landing) landing.style.display = 'none';
+                if (lockScreen) lockScreen.style.display = 'flex';
+
+                // 4. Reveal the page now that it's on the PIN screen
+                document.documentElement.style.visibility = 'visible';
+
+                // 5. Auto-focus the PIN input for a "Heavyweight App" feel
+                const pinInput = document.getElementById('unlock-pin');
+                if (pinInput) pinInput.focus();
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <section id="landing-page" class="hero-section">
+        <div class="hero-content">
+            <div class="badge">v2.0 Elite Edition</div>
+            <h1 class="hero-title">The Future of <br><span>Financial Intelligence</span></h1>
+            <p class="hero-subtitle">The ultimate ecosystem for ACCA professionals and high-net-worth students. Track
+                wealth, calculate taxes, and crush milestones in one secure terminal.</p>
+            <div class="hero-cta-group">
+                <button onclick="launchTerminal()" class="btn-primary-glow">Launch Terminal</button>
+                <button onclick="showInstallSheet()" class="btn-outline-pro">Download App</button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item"><strong>13</strong><span>ACCA Papers</span></div>
+                <div class="stat-item"><strong>12%</strong><span>Wealth Forecast</span></div>
+                <div class="stat-item"><strong>256-bit</strong><span>Security</span></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="security-lock-screen" class="screen login-gate" style="display:none; z-index: 9999;">
+        <div class="login-card glass-pro">
+            <div class="app-icon-glow">🔒</div>
+            <h1 class="pro-title">Terminal Locked</h1>
+            <p>Enter 4-digit PIN to proceed</p>
+            <input type="password" id="unlock-pin" maxlength="4" inputmode="numeric" pattern="[0-9]*" placeholder="••••"
+                style="text-align:center; font-size:2.5rem; letter-spacing:15px; margin-top:20px; background: rgba(0,0,0,0.4);">
+            <button onclick="verifyPin()" class="btn-primary-glow" style="margin-top:20px;">Unlock System</button>
+        </div>
+    </div>
+
+    <div id="login-screen" class="screen login-gate" style="display:none;">
+        <div class="login-card glass-pro" id="auth-card">
+            <div class="brand-header">
+                <div class="app-icon-glow">FS</div>
+                <h1 class="pro-title">FinStack <span>PRO</span></h1>
+                <p id="auth-subtitle">Authorized Access Only</p>
+            </div>
+            <form id="auth-form" class="auth-fields">
+                <div id="signup-fields" class="auth-expand" style="display:none;">
+                    <div class="input-group-pro">
+                        <label>Display Name</label>
+                        <input type="text" id="reg-name" placeholder="Krish Niranjan">
+                    </div>
+                </div>
+                <div class="input-group-pro">
+                    <label>Email Address</label>
+                    <input type="email" id="email-input" placeholder="authorized@email.com" required>
+                </div>
+                <div class="input-group-pro">
+                    <label>Secure Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password-input" placeholder="••••••••" required>
+                        <span id="toggle-password" class="eye-btn-pro">👁️</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary-glow" id="main-auth-btn">Sign In</button>
+                <p onclick="forgotPassword()"
+                    style="font-size: 0.7rem; color: #94a3b8; cursor: pointer; margin-top: 12px; text-decoration: underline; text-align: center;">
+                    Forgot Password?</p>
+                <div class="auth-divider"><span>OR</span></div>
+                <button type="button" class="btn-outline-pro" id="switch-auth-btn">Create Account</button>
+            </form>
+            <div id="auth-error" class="status-toast" style="display:none;"></div>
+        </div>
+    </div>
+
+    <div id="main-dashboard" class="screen" style="display:none;">
+        <div class="app-container">
+            <header class="app-top-bar">
+                <div class="user-profile">
+                    <div class="avatar-container" onclick="triggerPhoto()">
+                        <div id="user-avatar" class="avatar-neon">??</div>
+                        <div class="camera-overlay">📷</div>
+                        <input type="file" id="photo-input" style="display:none" accept="image/*">
+                    </div>
+                    <div class="user-meta">
+                        <span id="display-name-label" class="u-name">Syncing...</span>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="glass-nav-bar">
+                <button class="nav-item active" onclick="navigate('ledger', this)">💰<span>Ledger</span></button>
+                <button class="nav-item" onclick="navigate('career', this)">📈<span>Tax</span></button>
+                <button class="nav-item" onclick="navigate('study', this)">📚<span>Study</span></button>
+                <button class="nav-item" onclick="navigate('exams', this)">🎓<span>ACCA</span></button>
+                <button class="nav-item" onclick="navigate('settings', this)">⚙️<span>Settings</span></button>
+            </nav>
+
+            <main class="content-view">
+                <div id="view-ledger" class="view-pane active">
+                    <div class="card wealth-terminal shimmer">
+                        <small>TOTAL INVESTABLE SURPLUS</small>
+                        <h1 id="balance" class="mono-glow">₹0.00</h1>
+                        <div class="wealth-forecast">10Y Forecast (12%): <span id="wealth-insight">₹0</span></div>
+                    </div>
+                    <div class="summary-grid-pro">
+                        <div class="sum-card-pro in"><span>Inflow</span>
+                            <p id="money-plus" class="plus">₹0</p>
+                        </div>
+                        <div class="sum-card-pro out"><span>Outflow</span>
+                            <p id="money-minus" class="minus">₹0</p>
+                        </div>
+                    </div>
+                    <div class="card bg-blur">
+                        <h3 class="section-title">Record Transaction</h3>
+                        <form id="transaction-form">
+                            <input type="text" id="text" placeholder="Description" required>
+                            <select id="category" style="margin: 10px 0;">
+                                <option value="Income">💰 Income</option>
+                                <option value="Education">📚 Education</option>
+                                <option value="Living">🍔 Living</option>
+                            </select>
+                            <input type="number" id="amount" placeholder="Amount" required>
+                            <button type="submit" class="btn-success-pro" style="margin-top: 10px;">Execute
+                                Sync</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="view-career" class="view-pane">
+                    <div class="card tax-card">
+                        <h3>📊 Tax Intelligence FY 26-27</h3>
+                        <input type="number" id="annual-salary" placeholder="Yearly Gross CTC (₹)">
+                        <div class="tax-grid-res">
+                            <div class="tax-box"><span>Liability</span>
+                                <p id="tax-amount" class="minus">₹0</p>
+                            </div>
+                            <div class="tax-box"><span>Monthly Net</span>
+                                <p id="take-home" class="plus">₹0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-blur">
+                        <h3>🚀 Career Wealth Potential</h3>
+                        <p id="market-value-text" class="plus" style="font-weight: 800; font-size: 1.2rem;">Analyzing
+                            papers...</p>
+                        <p id="wealth-msg" style="font-size: 0.8rem; margin-top: 5px; color: #94a3b8;"></p>
+                    </div>
+                </div>
+
+                <div id="view-study" class="view-pane">
+                    <div class="card timer-card">
+                        <h2 id="timer-display" class="mono-glow">25:00</h2>
+                        <button id="start-timer" class="btn-primary-glow">Start Focus Work</button>
+                    </div>
+                    <div class="card bg-blur">
+                        <h3>💱 ACCA Sinking Fund (Live)</h3>
+                        <div class="forex-grid"
+                            style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                            <div style="display: flex; gap: 10px;">
+                                <select id="curr-select" style="flex: 1;">
+                                    <option value="GBP">GBP (£)</option>
+                                    <option value="USD">USD ($)</option>
+                                    <option value="EUR">EUR (€)</option>
+                                </select>
+                                <input type="number" id="fee-input" value="147" style="flex: 1.5;">
+                            </div>
+                            <div class="forex-display-card"
+                                style="text-align: center; padding: 20px; background: rgba(0,0,0,0.4); border-radius: 20px; border: 1px solid var(--border); overflow: hidden;">
+                                <small style="color: #94a3b8; letter-spacing: 1px;">REQUIRED CAPITAL (INR)</small>
+                                <h1 id="inr-sum" class="mono-glow">₹0</h1>
+                                <p id="fund-count-tag" style="font-size: 0.7rem; opacity: 0.6; margin-top: 5px;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-exams" class="view-pane">
+                    <div class="card stats-card">
+                        <progress id="exam-overall-progress" value="0" max="13"></progress>
+                        <p id="exam-progress-text" class="mono-glow" style="text-align: center; font-size: 1.2rem;">0/13
+                            Cleared</p>
+                    </div>
+                    <div class="roadmap">
+                        <div class="level-box"><span class="l-tag">Applied Knowledge</span>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Business & Tech
+                                    (BT)</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Management Acc
+                                    (MA)</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Financial Acc
+                                    (FA)</span></label>
+                        </div>
+                        <div class="level-box"><span class="l-tag">Applied Skills</span>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Corporate Law
+                                    (LW)</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Performance Mgt
+                                    (PM)</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Taxation
+                                    (TX)</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Financial Reporting
+                                    (FR)</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Audit & Assurance
+                                    (AA)</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Finance Mgt
+                                    (FM)</span></label>
+                        </div>
+                        <div class="level-box"><span class="l-tag">Strategic Professional</span>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>SBR
+                                    Paper</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>SBL
+                                    Paper</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Optional
+                                    1</span></label>
+                            <label class="p-item"><input type="checkbox" class="acca-check"><span>Optional
+                                    2</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-settings" class="view-pane">
+                    <div class="card bg-blur">
+                        <h3>👤 Personal Account</h3>
+                        <input type="text" id="set-name" placeholder="Full Legal Name">
+                        <div style="display:flex; gap:10px; margin-top:10px;">
+                            <div class="input-group-pro" style="flex:1; margin-bottom:0; position: relative;">
+                                <label style="font-size: 0.6rem; color: var(--primary); margin-bottom: 2px;">Date of
+                                    Birth</label>
+                                <input type="date" id="set-dob" required style="color-scheme: dark;">
+                            </div>
+                            <div class="input-group-pro" style="flex:1; margin-bottom:0;">
+                                <label
+                                    style="font-size: 0.6rem; color: var(--primary); margin-bottom: 2px;">Gender</label>
+                                <select id="set-gender">
+                                    <option value="">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="save-account-btn" class="btn-primary-glow" style="margin-top:15px;">Update
+                            Profile</button>
+                    </div>
+                    <div class="card bg-blur">
+                        <h3>🛡️ 2-Factor Authentication</h3>
+                        <div id="tfa-setup-ui"><button onclick="startTFA()" class="btn-outline-pro">Verify Identity for
+                                2FA</button></div>
+                        <div id="tfa-otp-ui" style="display:none; margin-top:10px;">
+                            <input type="text" id="otp-code" placeholder="6-Digit OTP" maxlength="6">
+                            <button onclick="confirmOTP()" class="btn-success-pro">Activate 2FA</button>
+                        </div>
+                        <p id="tfa-tag" style="font-size: 0.7rem; color: #94a3b8; margin-top: 10px;">Status: INACTIVE
+                        </p>
+                    </div>
+                    <div class="card bg-blur">
+                        <h3>🔒 App Lock</h3>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span>PIN Protection</span>
+                            <input type="checkbox" id="pin-toggle" style="width:auto;">
+                        </div>
+                        <div id="pin-area" style="display:none; margin-top:10px;">
+                            <input type="password" id="set-new-pin" maxlength="4" placeholder="SET 4-DIGIT PIN">
+                            <button onclick="savePIN()" class="btn-success-pro" style="margin-top:5px;">Save Security
+                                PIN</button>
+                        </div>
+                    </div>
+                    <button id="logout-btn" class="btn-danger-pro" style="margin-top:15px;">Secure Logout</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="pwa-install-prompt" class="install-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-content">
+            <div class="app-icon-small">FS</div>
+            <div class="sheet-text">
+                <h3>Install FinStack Pro</h3>
+                <p>Add to home screen for the full experience.</p>
+            </div>
+            <button onclick="closeInstallPrompt()" class="btn-outline-pro"
+                style="width: auto !important;">Later</button>
+        </div>
+        <div class="instruction-steps">
+            <div id="ios-steps" style="display:none;">1. Tap <strong>Share</strong> ⎋ <br> 2. Tap <strong>'Add to Home
+                    Screen'</strong> ➕</div>
+            <div id="android-steps" style="display:none;">1. Tap <strong>Three Dots</strong> ⋮ <br> 2. Tap
+                <strong>'Install App'</strong>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        function launchTerminal() {
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'flex';
+        }
+        function showInstallSheet() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            document.getElementById('pwa-install-prompt').classList.add('show');
+            document.getElementById(isIOS ? 'ios-steps' : 'android-steps').style.display = 'block';
+        }
+        function closeInstallPrompt() { document.getElementById('pwa-install-prompt').classList.remove('show'); }
+    </script>
+</body>
+
+</html>
