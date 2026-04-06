@@ -103,7 +103,7 @@ window.verifyPin = () => {
     // .trim() is the "Elite" fix for mobile keyboard spaces
     const val = document.getElementById('unlock-pin').value.trim();
 
-    if (val === globalPIN) {
+    if (val.toString() === globalPIN.toString()) {
         showDashboard();
         // Clear the input after success for security
         document.getElementById('unlock-pin').value = '';
@@ -186,7 +186,7 @@ function syncLedger() {
         document.getElementById('money-minus').innerText = `₹${outflow.toLocaleString('en-IN')}`;
 
         // Compound Forecast (10Y @ 12%)
-        const forecast = Math.floor(b * Math.pow(1 + 0.12, 10));
+        const forecast = Math.floor(balance * Math.pow(1.12, 10)) || 0;
         document.getElementById('wealth-insight').innerText = `₹${forecast.toLocaleString('en-IN')}`;
 
         // AI Spending Anomaly Detection

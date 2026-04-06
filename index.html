@@ -50,6 +50,7 @@
 </head>
 
 <body>
+    <div id="initial-loader"></div>
     <section id="landing-page" class="hero-section">
         <div class="hero-content">
             <div class="badge">v2.0 Elite Edition</div>
@@ -156,13 +157,13 @@
                     <div class="card bg-blur">
                         <h3 class="section-title">Record Transaction</h3>
                         <form id="transaction-form">
-                            <input type="text" id="text" placeholder="Description" required>
-                            <select id="category" style="margin: 10px 0;">
+                            <input type="text" id="trans-text" placeholder="Description" required>
+                            <select id="trans-category" style="margin: 10px 0;">
                                 <option value="Income">💰 Income</option>
                                 <option value="Education">📚 Education</option>
                                 <option value="Living">🍔 Living</option>
                             </select>
-                            <input type="number" id="amount" placeholder="Amount" required>
+                            <input type="number" id="trans-amount" placeholder="Amount" required>
                             <button type="submit" class="btn-success-pro" style="margin-top: 10px;">Execute
                                 Sync</button>
                         </form>
@@ -332,7 +333,7 @@
         </div>
     </div>
 
-    <script type="module" src="script.js"></script>
+
     <script>
         function launchTerminal() {
             document.getElementById('landing-page').style.display = 'none';
@@ -345,6 +346,9 @@
         }
         function closeInstallPrompt() { document.getElementById('pwa-install-prompt').classList.remove('show'); }
     </script>
+
+    <script type="module" src="script.js"></script>
+
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 #login-screen,
 #landing-page,
 #main-dashboard {
-    display: none !important;
+    display: none;
 }
 
 /* Ensure the app-container doesn't show before it's ready */
