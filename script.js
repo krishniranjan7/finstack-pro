@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Prepare the PIN keypad for instant entry
         setTimeout(() => {
-            const pinInput = document.getElementById('unlock-pin');
+            const forecast = Math.floor(b * Math.pow(1.12, 10)) || 0;
             if (pinInput) pinInput.focus();
         }, 500);
     }
@@ -97,6 +97,8 @@ onAuthStateChanged(auth, async (user) => {
         }
         document.getElementById('main-dashboard').style.display = 'none';
     }
+    // This kills the black loading screen once the Auth logic is finished
+    document.getElementById('initial-loader').style.display = 'none';
 });
 
 window.verifyPin = () => {
@@ -116,7 +118,8 @@ window.verifyPin = () => {
 
 function showDashboard() {
     document.getElementById('security-lock-screen').style.display = 'none';
-    document.getElementById('main-dashboard').style.display = 'block';
+    // 🔒 This 'setProperty' command breaks through the CSS !important lock we set in style.css
+    document.getElementById('main-dashboard').style.setProperty('display', 'block', 'important');
 }
 
 // --- 🎓 ACCA TRACKER ---

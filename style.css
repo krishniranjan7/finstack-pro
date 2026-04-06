@@ -1,9 +1,23 @@
+#initial-loader {
+    position: fixed;
+    inset: 0;
+    background: #020617;
+    /* Matches your --bg */
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* 🛡️ ELITE MASTER CLOAK: Zero-Flicker System */
-#pin-screen,
 #login-screen,
-#landing-page,
-#main-dashboard {
+#landing-page {
     display: none;
+}
+
+#main-dashboard {
+    display: none !important;
+    /* 🔒 Hard-lock the dashboard until Firebase is ready */
 }
 
 /* Ensure the app-container doesn't show before it's ready */
@@ -208,8 +222,11 @@ body {
 /* 👤 DASHBOARD UI */
 .app-container {
     max-width: 480px;
-    margin: auto;
+    margin: 0 auto;
     padding: 25px 25px 120px;
+    min-height: 100vh;
+    /* Ensures the dark background covers the whole screen */
+    background: var(--bg);
 }
 
 .avatar-container {
