@@ -40,3 +40,7 @@ out/
 *.njsproj
 *.sln
 *.sw?
+
+# ⚡ PWA & Local Dev
+.parcel-cache/
+.cache/
